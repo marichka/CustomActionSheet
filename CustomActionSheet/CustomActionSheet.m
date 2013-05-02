@@ -13,12 +13,17 @@
 
 @synthesize delegate;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString*)title buttons:(NSArray*)buttons delegate:(id)customActionSheetDelegate
+- (id)initWithFrame:(CGRect)frame title:(NSString*)title buttons:(NSArray*)buttons icons:(NSArray*)icons delegate:(id)customActionSheetDelegate
 {
     self = [super initWithFrame:frame];
     if (self) {
         delegate = customActionSheetDelegate;
         TableButtons = [[NSArray alloc] initWithArray:buttons];
+        
+        if (icons)
+            TableIcons = [[NSArray alloc] initWithArray:icons];
+        else
+            TableIcons = Nil;
         
         ButtonImg = [UIImage imageNamed:@"button.png"];
         
@@ -129,10 +134,28 @@
         CellTitleLbl.backgroundColor = [UIColor clearColor];
         CellTitleLbl.text = [TableButtons objectAtIndex:indexPath.row];
         CellTitleLbl.font = [UIFont boldSystemFontOfSize:18.0];
-        CellTitleLbl.textColor = [UIColor whiteColor];
+        CellTitleLbl.textColor = [UIColor blackColor];
         CellTitleLbl.textAlignment = UITextAlignmentCenter;
         CellTitleLbl.adjustsFontSizeToFitWidth = YES;
         [bgImgView addSubview:CellTitleLbl];
+        
+        if (TableIcons)
+        {
+            UIImageView *iconImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[TableIcons objectAtIndex:indexPath.row]]];
+            
+            //if icon is too big, we will scale it
+            int max_height = bgImgView.frame.size.height-10.0;
+            
+            if (iconImgView.frame.size.height>max_height)
+                iconImgView.frame = CGRectMake(0.0, 0.0, iconImgView.frame.size.width*max_height/iconImgView.frame.size.height, max_height);
+            
+            iconImgView.frame = CGRectMake(70.0, (int)(bgImgView.frame.size.height-iconImgView.frame.size.height)/2.0, iconImgView.frame.size.width, iconImgView.frame.size.height);
+            
+            [bgImgView addSubview:iconImgView];
+            
+            CellTitleLbl.frame = CGRectMake(iconImgView.frame.origin.x+iconImgView.frame.size.width+10.0, 0.0, bgImgView.frame.size.width-iconImgView.frame.origin.x-iconImgView.frame.size.width-90.0, bgImgView.frame.size.height);
+            CellTitleLbl.textAlignment = UITextAlignmentLeft;
+        }
     }
     
     return cell;

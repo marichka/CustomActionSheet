@@ -38,7 +38,7 @@
 
 - (void)onActionSheetBtnPressed
 {
-    CustomActionSheet *actionSheet = [[CustomActionSheet alloc] initWithFrame:self.view.bounds title:@"Set background color:" buttons:[NSArray arrayWithObjects:@"Red", @"Green", @"Blue", @"Orange"/*, @"Purple"*/, nil] delegate:self];
+    CustomActionSheet *actionSheet = [[CustomActionSheet alloc] initWithFrame:self.view.bounds title:@"Set background color:" buttons:[NSArray arrayWithObjects:@"Red", @"Green", @"Blue", @"Orange", nil] icons:[NSArray arrayWithObjects:@"red.png", @"green.png", @"blue.png", @"orange.png", nil] delegate:self];
     [self.view addSubview:actionSheet];
 }
 

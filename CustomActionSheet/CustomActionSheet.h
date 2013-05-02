@@ -11,6 +11,7 @@
 @interface CustomActionSheet : UIView <UITableViewDelegate, UITableViewDataSource>
 {
     NSArray *TableButtons;
+    NSArray *TableIcons;
     
     UITableView *ActionSheetTableView;
     
@@ -21,7 +22,7 @@
 }
 @property id delegate;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString*)title buttons:(NSArray*)buttons delegate:(id)customActionSheetDelegate;
+- (id)initWithFrame:(CGRect)frame title:(NSString*)title buttons:(NSArray*)buttons icons:(NSArray*)icons delegate:(id)customActionSheetDelegate;
 
 @end
 
